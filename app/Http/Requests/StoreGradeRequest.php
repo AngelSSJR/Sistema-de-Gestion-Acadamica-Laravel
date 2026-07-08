@@ -19,7 +19,7 @@ class StoreGradeRequest extends FormRequest
             'subject_id' => ['required', 'exists:subjects,id'],
             'teacher_id' => ['required', 'exists:teachers,id'],
             'period' => ['required', 'integer', 'min:1', 'max:6'],
-            'grade_value' => ['nullable', 'numeric', 'min:0', 'max:20'],
+            'grade_value' => ['nullable', 'numeric', 'min:0', 'max:100'],
             'comment' => ['nullable', 'string', 'max:500'],
             'academic_period' => ['nullable', 'string', 'max:20'],
         ];

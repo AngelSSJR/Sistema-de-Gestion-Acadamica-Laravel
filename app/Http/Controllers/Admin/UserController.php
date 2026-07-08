@@ -31,15 +31,16 @@ class UserController extends Controller
             'name' => ['required', 'string', 'max:255', 'regex:/^[\pL\s]+$/u'],
             'email' => ['required', 'string', 'lowercase', 'email:rfc', 'max:255', 'unique:' . User::class, 'ends_with:.com'],
             'password' => ['required', 'string', 'min:8'],
-            'phone' => ['nullable', 'string', 'max:20'],
+            'phone' => ['nullable', 'string', 'max:20', 'regex:/^[\d\s+\-()]+$/'],
             'role' => ['required', Rule::in(['dev_admin', 'secretary', 'coordinator', 'teacher', 'student', 'rector'])],
             'employee_code' => ['required_if:role,teacher', 'nullable', 'string', 'max:20', Rule::unique('teachers', 'employee_code')],
             'specialty' => ['nullable', 'string', 'max:100', 'regex:/^[\pL\s]+$/u'],
             'education_level' => ['nullable', 'string', 'max:50'],
             'student_code' => ['required_if:role,student', 'nullable', 'string', 'max:20', Rule::unique('students', 'student_code')],
-            'age' => ['nullable', 'integer', 'min:0', 'max:80'],
+            'age' => ['nullable', 'integer', 'min:0', 'max:60'],
         ], [
             'name.regex' => 'El nombre no debe contener números.',
+            'phone.regex' => 'El teléfono solo puede contener números, espacios, +, - y paréntesis.',
             'email.ends_with' => 'El correo debe terminar en .com',
             'employee_code.required_if' => 'El código de empleado es obligatorio para profesores.',
             'student_code.required_if' => 'El código de estudiante es obligatorio para estudiantes.',
@@ -95,10 +96,11 @@ class UserController extends Controller
             'name' => ['required', 'string', 'max:255', 'regex:/^[\pL\s]+$/u'],
             'email' => ['required', 'string', 'lowercase', 'email:rfc', 'max:255', Rule::unique('users', 'email')->ignore($user->id), 'ends_with:.com'],
             'password' => ['nullable', 'string', 'min:8'],
-            'phone' => ['nullable', 'string', 'max:20'],
+            'phone' => ['nullable', 'string', 'max:20', 'regex:/^[\d\s+\-()]+$/'],
             'role' => ['required', Rule::in(['dev_admin', 'secretary', 'coordinator', 'teacher', 'student', 'rector'])],
         ], [
             'name.regex' => 'El nombre no debe contener números.',
+            'phone.regex' => 'El teléfono solo puede contener números, espacios, +, - y paréntesis.',
             'email.ends_with' => 'El correo debe terminar en .com',
         ]);
 

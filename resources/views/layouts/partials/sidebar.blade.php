@@ -1,8 +1,7 @@
 <nav class="sidebar d-flex flex-column">
     <div class="p-3 border-bottom border-secondary">
         <a href="{{ route('dashboard') }}" class="text-white text-decoration-none d-flex align-items-center">
-            <i class="bi bi-mortarboard-fill fs-4 me-2"></i>
-            <span class="fw-bold">SGA</span>
+            <img src="{{ asset('img/ChatGPT Image 7 jul 2026, 22_08_36.png') }}" alt="UF" height="32">
         </a>
     </div>
 

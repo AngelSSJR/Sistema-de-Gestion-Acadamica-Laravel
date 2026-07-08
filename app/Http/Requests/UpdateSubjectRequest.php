@@ -24,7 +24,7 @@ class UpdateSubjectRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:100', 'regex:/^[\pL\s]+$/u'],
             'code' => ['required', 'string', 'max:20', Rule::unique('subjects', 'code')->ignore($this->route('subject')->id)],
-            'credits' => ['nullable', 'integer', 'min:0', 'max:20'],
+            'credits' => ['nullable', 'integer', 'min:0', 'max:10'],
             'description' => ['nullable', 'string', 'max:500'],
             'is_active' => ['boolean'],
         ];

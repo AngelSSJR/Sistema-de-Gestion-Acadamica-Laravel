@@ -18,7 +18,8 @@ class UpdateStudentRequest extends FormRequest
             'name.regex' => 'El nombre no debe contener números.',
             'age.integer' => 'La edad debe ser un número entero.',
             'age.min' => 'La edad no puede ser negativa.',
-            'age.max' => 'La edad no puede ser mayor a 80.',
+            'age.max' => 'La edad no puede ser mayor a 60.',
+            'phone.regex' => 'El teléfono solo puede contener números, espacios, +, - y paréntesis.',
             'email.ends_with' => 'El correo debe terminar en .com',
         ];
     }
@@ -31,9 +32,9 @@ class UpdateStudentRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255', 'regex:/^[\pL\s]+$/u'],
             'email' => ['required', 'string', 'lowercase', 'email:rfc', 'max:255', Rule::unique('users', 'email')->ignore($userId), 'ends_with:.com'],
-            'phone' => ['nullable', 'string', 'max:20'],
+            'phone' => ['nullable', 'string', 'max:20', 'regex:/^[\d\s+\-()]+$/'],
             'student_code' => ['required', 'string', 'max:20', Rule::unique('students', 'student_code')->ignore($studentId)],
-            'age' => ['nullable', 'integer', 'min:0', 'max:80'],
+            'age' => ['nullable', 'integer', 'min:0', 'max:60'],
             'enrollment_date' => ['nullable', 'date'],
             'status' => ['required', Rule::in(['active', 'graduated', 'suspended', 'withdrawn'])],
         ];

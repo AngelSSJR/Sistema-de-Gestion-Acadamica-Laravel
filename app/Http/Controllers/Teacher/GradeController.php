@@ -60,7 +60,7 @@ class GradeController extends Controller
             'period' => ['required', 'integer', 'min:1', 'max:6'],
             'grades' => ['required', 'array'],
             'grades.*.enrollment_id' => ['required', 'exists:enrollments,id'],
-            'grades.*.grade_value' => ['nullable', 'numeric', 'min:0', 'max:20'],
+            'grades.*.grade_value' => ['nullable', 'numeric', 'min:0', 'max:100'],
             'grades.*.comment' => ['nullable', 'string', 'max:500'],
             'academic_period' => ['nullable', 'string', 'max:20'],
         ]);

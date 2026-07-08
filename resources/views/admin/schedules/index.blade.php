@@ -24,7 +24,7 @@
                             <th>Profesor</th>
                             <th>Día</th>
                             <th>Horario</th>
-                            <th>Aula</th>
+                                <th>Ambiente</th>
                             <th class="text-end">Acciones</th>
                         </tr>
                     </thead>
@@ -44,7 +44,7 @@
                                     @endforeach
                                 </td>
                                 <td>{{ substr($schedule->start_time, 0, 5) }} - {{ substr($schedule->end_time, 0, 5) }}</td>
-                                <td>{{ $schedule->room?->name ?? $schedule->room ?? '—' }}</td>
+                                <td>{{ $schedule->roomModel?->name ?? $schedule->room ?? '—' }}</td>
                                 <td class="text-end">
                                     <a href="{{ route($routePrefix . 'schedules.show', $schedule) }}" class="btn btn-sm btn-outline-info" title="Ver">
                                         <i class="bi bi-eye"></i>

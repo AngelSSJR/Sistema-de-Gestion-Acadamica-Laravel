@@ -20,7 +20,7 @@ class ScheduleController extends Controller
 
     public function index()
     {
-        $schedules = Schedule::with(['course', 'subject', 'teacher.user', 'room'])->latest()->paginate(15);
+        $schedules = Schedule::with(['course', 'subject', 'teacher.user', 'roomModel'])->latest()->paginate(15);
         $routePrefix = $this->getRoutePrefix();
         return view('admin.schedules.index', compact('schedules', 'routePrefix'));
     }
@@ -46,7 +46,7 @@ class ScheduleController extends Controller
 
     public function show(Schedule $schedule)
     {
-        $schedule->load(['course', 'subject', 'teacher.user', 'room']);
+        $schedule->load(['course', 'subject', 'teacher.user', 'roomModel']);
         $routePrefix = $this->getRoutePrefix();
         return view('admin.schedules.show', compact('schedule', 'routePrefix'));
     }

@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-md-4">
                         <label for="credits" class="form-label">Créditos</label>
-                        <input type="number" class="form-control @error('credits') is-invalid @enderror" id="credits" name="credits" value="{{ old('credits', 0) }}" min="0" max="20">
+                        <input type="number" class="form-control @error('credits') is-invalid @enderror" id="credits" name="credits" value="{{ old('credits', 0) }}" min="0" max="10">
                         @error('credits') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                     <div class="col-md-8">

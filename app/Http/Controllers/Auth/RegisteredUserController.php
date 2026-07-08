@@ -29,7 +29,7 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255', 'regex:/^[\pL\s]+$/u'],
             'email' => ['required', 'string', 'lowercase', 'email:rfc', 'max:255', 'unique:' . User::class, 'ends_with:.com'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'phone' => ['nullable', 'string', 'max:20'],
+            'phone' => ['nullable', 'string', 'max:20', 'regex:/^[\d\s+\-()]+$/'],
             'role' => ['required', Rule::in(['teacher', 'student'])],
         ];
 
@@ -41,7 +41,7 @@ class RegisteredUserController extends Controller
             ],
             'student' => [
                 'student_code' => ['required', 'string', 'max:20', Rule::unique('students', 'student_code')],
-                'age' => ['nullable', 'integer', 'min:0', 'max:80'],
+                'age' => ['nullable', 'integer', 'min:0', 'max:60'],
             ],
             default => [],
         };
@@ -49,11 +49,12 @@ class RegisteredUserController extends Controller
         $validated = $request->validate(array_merge($baseRules, $roleRules), [
             'name.regex' => 'El nombre no debe contener números.',
             'specialty.regex' => 'La especialidad no debe contener números.',
+            'phone.regex' => 'El teléfono solo puede contener números, espacios, +, - y paréntesis.',
             'email.ends_with' => 'El correo debe terminar en .com',
             'email.unique' => 'El correo ya está registrado.',
             'age.integer' => 'La edad debe ser un número entero.',
             'age.min' => 'La edad no puede ser negativa.',
-            'age.max' => 'La edad no puede ser mayor a 80.',
+            'age.max' => 'La edad no puede ser mayor a 60.',
             'employee_code.unique' => 'El código de empleado ya está registrado.',
             'student_code.unique' => 'El código de estudiante ya está registrado.',
             'role.in' => 'Seleccione un tipo de usuario válido.',

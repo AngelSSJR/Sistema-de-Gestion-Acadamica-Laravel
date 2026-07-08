@@ -45,8 +45,8 @@
                         <dd><strong>{{ substr($schedule->start_time, 0, 5) }} — {{ substr($schedule->end_time, 0, 5) }}</strong></dd>
                         <dt>Ambiente</dt>
                         <dd>
-                            @if($schedule->room_id && $schedule->relationLoaded('room') && $schedule->room)
-                                <a href="{{ route($routePrefix . 'rooms.show', $schedule->room) }}" class="text-decoration-none">{{ $schedule->room->name }}</a>
+                            @if($schedule->room_id && $schedule->relationLoaded('roomModel') && $schedule->roomModel)
+                                <a href="{{ route($routePrefix . 'rooms.show', $schedule->roomModel) }}" class="text-decoration-none">{{ $schedule->roomModel->name }}</a>
                             @elseif($schedule->room)
                                 {{ $schedule->room }}
                             @else

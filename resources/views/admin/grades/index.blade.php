@@ -40,7 +40,7 @@
                                 <td>{{ $grade->subject->name }}</td>
                                 <td><span class="badge bg-info">{{ $grade->period }}</span></td>
                                 <td>
-                                    <strong class="{{ $grade->grade_value && $grade->grade_value < 11 ? 'text-danger' : 'text-success' }}">
+                                    <strong class="{{ $grade->grade_value && $grade->grade_value < 55 ? 'text-danger' : 'text-success' }}">
                                         {{ $grade->grade_value ?? '—' }}
                                     </strong>
                                 </td>

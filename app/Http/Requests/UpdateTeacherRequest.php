@@ -18,6 +18,7 @@ class UpdateTeacherRequest extends FormRequest
             'name.regex' => 'El nombre no debe contener números.',
             'specialty.regex' => 'La especialidad no debe contener números.',
             'email.ends_with' => 'El correo debe terminar en .com',
+            'phone.regex' => 'El teléfono solo puede contener números, espacios, +, - y paréntesis.',
         ];
     }
 
@@ -29,7 +30,7 @@ class UpdateTeacherRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255', 'regex:/^[\pL\s]+$/u'],
             'email' => ['required', 'string', 'lowercase', 'email:rfc', 'max:255', Rule::unique('users', 'email')->ignore($userId), 'ends_with:.com'],
-            'phone' => ['nullable', 'string', 'max:20'],
+            'phone' => ['nullable', 'string', 'max:20', 'regex:/^[\d\s+\-()]+$/'],
             'employee_code' => ['required', 'string', 'max:20', Rule::unique('teachers', 'employee_code')->ignore($teacherId)],
             'specialty' => ['nullable', 'string', 'max:100', 'regex:/^[\pL\s]+$/u'],
             'hire_date' => ['nullable', 'date'],

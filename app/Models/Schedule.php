@@ -55,9 +55,9 @@ class Schedule extends Model
         return $this->belongsTo(Teacher::class);
     }
 
-    public function room()
+    public function roomModel()
     {
-        return $this->belongsTo(Room::class);
+        return $this->belongsTo(Room::class, 'room_id');
     }
 
     public function attendances()

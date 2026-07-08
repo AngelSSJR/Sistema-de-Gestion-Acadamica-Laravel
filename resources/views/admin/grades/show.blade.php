@@ -46,7 +46,7 @@
                         <dd>{{ $grade->period }}</dd>
                         <dt>Nota</dt>
                         <dd>
-                            <strong class="{{ $grade->grade_value && $grade->grade_value < 11 ? 'text-danger' : 'text-success' }}" style="font-size:1.4rem">
+                            <strong class="{{ $grade->grade_value && $grade->grade_value < 55 ? 'text-danger' : 'text-success' }}" style="font-size:1.4rem">
                                 {{ $grade->grade_value ?? '—' }}
                             </strong>
                             <span class="text-muted">/ 20</span>

@@ -14,7 +14,7 @@ class UpdateGradeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'grade_value' => ['nullable', 'numeric', 'min:0', 'max:20'],
+            'grade_value' => ['nullable', 'numeric', 'min:0', 'max:100'],
             'comment' => ['nullable', 'string', 'max:500'],
         ];
     }

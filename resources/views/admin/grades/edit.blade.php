@@ -26,8 +26,8 @@
 
                 <div class="row g-3">
                     <div class="col-md-4">
-                        <label for="grade_value" class="form-label">Nota (0-20)</label>
-                        <input type="number" step="0.01" class="form-control @error('grade_value') is-invalid @enderror" id="grade_value" name="grade_value" value="{{ old('grade_value', $grade->grade_value) }}" min="0" max="20">
+                        <label for="grade_value" class="form-label">Nota (0-100)</label>
+                        <input type="number" step="0.01" class="form-control @error('grade_value') is-invalid @enderror" id="grade_value" name="grade_value" value="{{ old('grade_value', $grade->grade_value) }}" min="0" max="100">
                         @error('grade_value') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                     <div class="col-12">

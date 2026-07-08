@@ -29,7 +29,7 @@
                                 <tr>
                                     <th>Estudiante</th>
                                     <th>Curso</th>
-                                    <th style="width:120px">Nota (0-20)</th>
+                                    <th style="width:120px">Nota (0-100)</th>
                                     <th>Comentario</th>
                                 </tr>
                             </thead>
@@ -48,7 +48,7 @@
                                             <td>{{ $enrollment->course->name }}</td>
                                             <td>
                                                 <input type="hidden" name="grades[{{ $loop->index }}][enrollment_id]" value="{{ $enrollment->id }}">
-                                                <input type="number" step="0.01" class="form-control form-control-sm" min="0" max="20"
+                                                <input type="number" step="0.01" class="form-control form-control-sm" min="0" max="100"
                                                        name="grades[{{ $loop->index }}][grade_value]"
                                                        value="{{ old('grades.' . $loop->index . '.grade_value', $existingGrade?->grade_value) }}">
                                             </td>
