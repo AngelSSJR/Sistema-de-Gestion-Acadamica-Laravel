@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateEnrollmentRequest;
 use App\Models\Course;
 use App\Models\Enrollment;
 use App\Models\Student;
+use Illuminate\Http\Request;
 
 class EnrollmentController extends Controller
 {
@@ -16,11 +17,26 @@ class EnrollmentController extends Controller
         return auth()->user()->isDevAdmin() ? 'dev-admin.' : 'secretary.';
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $enrollments = Enrollment::with(['student.user', 'course'])->latest()->paginate(15);
+        $search = $request->get('search');
+
+        $enrollments = Enrollment::with(['student.user', 'course'])
+            ->when($search, function ($q) use ($search) {
+                $q->where(function ($q) use ($search) {
+                    $q->whereHas('student.user', function ($q) use ($search) {
+                        $q->where('name', 'like', "%{$search}%");
+                    })->orWhereHas('course', function ($q) use ($search) {
+                        $q->where('name', 'like', "%{$search}%");
+                    })->orWhere('academic_period', 'like', "%{$search}%")
+                      ->orWhere('status', 'like', "%{$search}%");
+                });
+            })
+            ->latest()
+            ->paginate(15);
+
         $routePrefix = $this->getRoutePrefix();
-        return view('admin.enrollments.index', compact('enrollments', 'routePrefix'));
+        return view('admin.enrollments.index', compact('enrollments', 'routePrefix', 'search'));
     }
 
     public function create()

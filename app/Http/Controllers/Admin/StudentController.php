@@ -7,6 +7,7 @@ use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Models\Student;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
@@ -15,11 +16,26 @@ class StudentController extends Controller
         return auth()->user()->isDevAdmin() ? 'dev-admin.' : 'secretary.';
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $students = Student::with('user')->latest()->paginate(10);
+        $search = $request->get('search');
+
+        $students = Student::with('user')
+            ->when($search, function ($q) use ($search) {
+                $q->where(function ($q) use ($search) {
+                    $q->whereHas('user', function ($q) use ($search) {
+                        $q->where('name', 'like', "%{$search}%")
+                          ->orWhere('email', 'like', "%{$search}%");
+                    })
+                    ->orWhere('student_code', 'like', "%{$search}%")
+                    ->orWhere('status', 'like', "%{$search}%");
+                });
+            })
+            ->latest()
+            ->paginate(10);
+
         $routePrefix = $this->getRoutePrefix();
-        return view('admin.students.index', compact('students', 'routePrefix'));
+        return view('admin.students.index', compact('students', 'routePrefix', 'search'));
     }
 
     public function create()

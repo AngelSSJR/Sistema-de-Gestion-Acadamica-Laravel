@@ -26,10 +26,6 @@
             background: rgba(0, 0, 0, 0.75) !important;
             backdrop-filter: blur(6px);
         }
-        .card {
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(8px);
-        }
         footer {
             background: rgba(0, 0, 0, 0.75) !important;
             backdrop-filter: blur(6px);
@@ -58,17 +54,15 @@
                                 </li>
                             @else
                                 <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('universidad') }}">
+                                        <i class="bi bi-building me-1"></i>La Universidad
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a class="nav-link" href="{{ route('login') }}">
                                         <i class="bi bi-box-arrow-in-right me-1"></i>Ingresar
                                     </a>
                                 </li>
-                                @if (Route::has('register'))
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('register') }}">
-                                            <i class="bi bi-person-plus me-1"></i>Registro
-                                        </a>
-                                    </li>
-                                @endif
                             @endauth
                         @endif
                     </ul>
@@ -77,11 +71,11 @@
         </nav>
 
         <div class="container mt-5">
-            <div class="row justify-content-center text-center py-5">
+            <div class="row justify-content-center text-center py-5" style="animation: fadeInUp 0.7s ease backwards;">
                 <div class="col-lg-8">
-                    <img src="{{ asset('img/ChatGPT Image 7 jul 2026, 22_08_36.png') }}" alt="UF" height="90" class="mb-3">
-                    <h1 class="display-4 fw-bold mb-3 text-white">Universidad de Fundación</h1>
-                    <p class="lead text-white-50 mb-4">Sistema de Gestión Académica</p>
+                    <img src="{{ asset('img/ChatGPT Image 7 jul 2026, 22_08_36.png') }}" alt="UF" height="90" class="mb-3" style="animation: fadeIn 0.8s ease backwards;">
+                    <h1 class="display-4 fw-bold mb-3 text-white" style="animation: fadeInUp 0.6s ease backwards 0.1s;">Universidad de Fundación</h1>
+                    <p class="lead text-white-50 mb-4" style="animation: fadeInUp 0.6s ease backwards 0.2s;">Sistema de Gestión Académica</p>
                     <p class="text-white-50 mb-4">Plataforma integral para la administración de instituciones educativas. Gestión de estudiantes, profesores, materias, horarios, calificaciones y asistencia.</p>
 
                     @if (Route::has('login'))
@@ -93,41 +87,96 @@
                             <a href="{{ route('login') }}" class="btn btn-primary btn-lg px-5 me-3">
                                 <i class="bi bi-box-arrow-in-right me-2"></i>Iniciar Sesión
                             </a>
-                            @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="btn btn-outline-light btn-lg px-5">
-                                    <i class="bi bi-person-plus me-2"></i>Registrarse
-                                </a>
-                            @endif
                         @endauth
                     @endif
                 </div>
             </div>
 
             <div class="row g-4 py-5">
-                <div class="col-md-4">
-                    <div class="card border-0 shadow-sm h-100">
+                <div class="col-md-4" style="animation: fadeInUp 0.5s ease backwards 0.2s;">
+                    <div class="card border-0 shadow-sm h-100 welcome-card" style="background:transparent;border:1px solid rgba(255,255,255,0.15)!important;">
                         <div class="card-body text-center p-4">
-                            <i class="bi bi-people display-5 text-primary mb-3"></i>
-                            <h5>Gestión de Usuarios</h5>
-                            <p class="text-muted small">Administra estudiantes, profesores y personal administrativo con roles y permisos.</p>
+                            <i class="bi bi-people display-5 mb-3" style="color:#86b7fe"></i>
+                            <h5 style="color:#fff">Gestión de Usuarios</h5>
+                            <p class="small" style="color:rgba(255,255,255,0.75)">Administra estudiantes, profesores y personal administrativo con roles y permisos.</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card border-0 shadow-sm h-100">
+                <div class="col-md-4" style="animation: fadeInUp 0.5s ease backwards 0.4s;">
+                    <div class="card border-0 shadow-sm h-100 welcome-card" style="background:transparent;border:1px solid rgba(255,255,255,0.15)!important;">
                         <div class="card-body text-center p-4">
-                            <i class="bi bi-journal-bookmark-fill display-5 text-success mb-3"></i>
-                            <h5>Control Académico</h5>
-                            <p class="text-muted small">Gestiona materias, horarios, calificaciones y asistencia en tiempo real.</p>
+                            <i class="bi bi-journal-bookmark-fill display-5 mb-3" style="color:#86b7fe"></i>
+                            <h5 style="color:#fff">Control Académico</h5>
+                            <p class="small" style="color:rgba(255,255,255,0.75)">Gestiona materias, horarios, calificaciones y asistencia en tiempo real.</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card border-0 shadow-sm h-100">
+                <div class="col-md-4" style="animation: fadeInUp 0.5s ease backwards 0.6s;">
+                    <div class="card border-0 shadow-sm h-100 welcome-card" style="background:transparent;border:1px solid rgba(255,255,255,0.15)!important;">
                         <div class="card-body text-center p-4">
-                            <i class="bi bi-bar-chart display-5 text-warning mb-3"></i>
-                            <h5>Reportes</h5>
-                            <p class="text-muted small">Visualiza boletines de notas, estadísticas y reportes académicos.</p>
+                            <i class="bi bi-bar-chart display-5 mb-3" style="color:#86b7fe"></i>
+                            <h5 style="color:#fff">Reportes</h5>
+                            <p class="small" style="color:rgba(255,255,255,0.75)">Visualiza boletines de notas, estadísticas y reportes académicos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center py-5" style="animation: fadeInUp 0.6s ease backwards 0.8s;">
+                <div class="col-lg-10">
+                    <div class="card border-0 shadow-sm welcome-card" style="background:transparent;border:1px solid rgba(255,255,255,0.15)!important;">
+                        <div class="card-body p-5" style="color:#fff">
+                            <h3 class="text-center fw-bold mb-4" style="color:#fff">DATOS DE CONTACTO</h3>
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <div class="d-flex mb-3">
+                                        <i class="bi bi-telephone-fill fs-4 me-3" style="color:#86b7fe"></i>
+                                        <div>
+                                            <strong>PBX:</strong> +57 312 2916169
+                                        </div>
+                                    </div>
+                                    <div class="d-flex mb-3">
+                                        <i class="bi bi-telephone-fill fs-4 me-3" style="color:#86b7fe"></i>
+                                        <div>
+                                            <strong>Contact Center Admisiones:</strong><br>
+                                            +57 317 0985438 — +57 320 5370471<br>
+                                            +57 320 6545162
+                                        </div>
+                                    </div>
+                                    <div class="d-flex mb-3">
+                                        <i class="bi bi-geo-alt-fill fs-4 me-3" style="color:#86b7fe"></i>
+                                        <div>
+                                            <strong>Canales físicos de atención</strong><br>
+                                            - Sede sur: Calle 3 #3208 San Carlos<br>
+                                            - Sede centro: Calle 9 N° 9-126, Fundación, Colombia, 472020<br>
+                                            - Sede Norte: Carrera 8 No 18 - 82, Magdalena, Fundación
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex mb-3">
+                                        <i class="bi bi-envelope-fill fs-4 me-3" style="color:#86b7fe"></i>
+                                        <div>
+                                            <strong>Notificaciones Judiciales:</strong><br>
+                                            <a href="mailto:notificaciones@mail.unifundacion.edu.co" class="text-decoration-none" style="color:#86b7fe">notificaciones@mail.unifundacion.edu.co</a>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex mb-3">
+                                        <i class="bi bi-envelope-fill fs-4 me-3" style="color:#86b7fe"></i>
+                                        <div>
+                                            <strong>Correo Admisiones:</strong><br>
+                                            <a href="mailto:comunicacionesadmisiones@mail.uniatlantico.edu.co" class="text-decoration-none" style="color:#86b7fe">comunicacionesadmisiones@mail.uniatlantico.edu.co</a>
+                                        </div>
+                                    </div>
+                                    <div class="text-center mt-3">
+                                        <a href="{{ route('universidad') }}" class="btn btn-primary px-4">
+                                            <i class="bi bi-info-circle me-1"></i>Más Información
+                                        </a>
+                                    </div>
+                                </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

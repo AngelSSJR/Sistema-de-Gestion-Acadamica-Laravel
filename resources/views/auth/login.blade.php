@@ -43,9 +43,4 @@
         </div>
     </form>
 
-    <div class="text-center mt-3">
-        <p class="small text-muted mb-0">{{ __('¿No tienes cuenta?') }}
-            <a href="{{ route('register') }}" class="text-decoration-none">{{ __('Registrarse') }}</a>
-        </p>
-    </div>
 @endsection

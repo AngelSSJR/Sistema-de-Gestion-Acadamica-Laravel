@@ -22,7 +22,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
+
+Route::view('/universidad', 'universidad')->name('universidad');
 
 Route::get('/dashboard', function () {
     $user = auth()->user();

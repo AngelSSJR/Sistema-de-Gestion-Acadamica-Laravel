@@ -13,6 +13,7 @@
 
         <div class="card">
             <div class="card-body p-0">
+                @include('partials.search-form')
                 <div class="table-responsive">
                     <table class="table table-hover mb-0">
                         <thead class="table-dark">

@@ -12,6 +12,7 @@
 
     <div class="card shadow-sm">
         <div class="card-body">
+            @include('partials.search-form')
             <div class="table-responsive">
                 <table class="table table-hover align-middle">
                     <thead class="table-light">

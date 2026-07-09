@@ -10,6 +10,7 @@ use App\Models\Room;
 use App\Models\Schedule;
 use App\Models\Subject;
 use App\Models\Teacher;
+use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
 {
@@ -18,11 +19,29 @@ class ScheduleController extends Controller
         return auth()->user()->isDevAdmin() ? 'dev-admin.' : 'coordinator.';
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $schedules = Schedule::with(['course', 'subject', 'teacher.user', 'roomModel'])->latest()->paginate(15);
+        $search = $request->get('search');
+
+        $schedules = Schedule::with(['course', 'subject', 'teacher.user', 'roomModel'])
+            ->when($search, function ($q) use ($search) {
+                $q->where(function ($q) use ($search) {
+                    $q->whereHas('course', function ($q) use ($search) {
+                        $q->where('name', 'like', "%{$search}%");
+                    })->orWhereHas('subject', function ($q) use ($search) {
+                        $q->where('name', 'like', "%{$search}%");
+                    })->orWhereHas('teacher.user', function ($q) use ($search) {
+                        $q->where('name', 'like', "%{$search}%");
+                    })->orWhereHas('roomModel', function ($q) use ($search) {
+                        $q->where('name', 'like', "%{$search}%");
+                    });
+                });
+            })
+            ->latest()
+            ->paginate(15);
+
         $routePrefix = $this->getRoutePrefix();
-        return view('admin.schedules.index', compact('schedules', 'routePrefix'));
+        return view('admin.schedules.index', compact('schedules', 'routePrefix', 'search'));
     }
 
     public function create()

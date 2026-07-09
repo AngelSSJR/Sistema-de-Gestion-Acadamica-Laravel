@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSubjectRequest;
 use App\Http\Requests\UpdateSubjectRequest;
 use App\Models\Subject;
+use Illuminate\Http\Request;
 
 class SubjectController extends Controller
 {
@@ -14,11 +15,19 @@ class SubjectController extends Controller
         return auth()->user()->isDevAdmin() ? 'dev-admin.' : 'coordinator.';
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $subjects = Subject::latest()->paginate(10);
+        $search = $request->get('search');
+
+        $subjects = Subject::when($search, function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('code', 'like', "%{$search}%");
+            })
+            ->latest()
+            ->paginate(10);
+
         $routePrefix = $this->getRoutePrefix();
-        return view('admin.subjects.index', compact('subjects', 'routePrefix'));
+        return view('admin.subjects.index', compact('subjects', 'routePrefix', 'search'));
     }
 
     public function create()

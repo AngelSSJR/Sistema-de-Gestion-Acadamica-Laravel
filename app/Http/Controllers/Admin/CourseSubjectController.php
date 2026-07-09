@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\Subject;
+use Illuminate\Http\Request;
 
 class CourseSubjectController extends Controller
 {
@@ -13,11 +14,20 @@ class CourseSubjectController extends Controller
         return auth()->user()->isDevAdmin() ? 'dev-admin.' : 'coordinator.';
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $courses = Course::with('subjects')->latest()->paginate(15);
+        $search = $request->get('search');
+
+        $courses = Course::with('subjects')
+            ->when($search, function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('code', 'like', "%{$search}%");
+            })
+            ->latest()
+            ->paginate(15);
+
         $routePrefix = $this->getRoutePrefix();
-        return view('admin.course-subjects.index', compact('courses', 'routePrefix'));
+        return view('admin.course-subjects.index', compact('courses', 'routePrefix', 'search'));
     }
 
     public function edit(Course $course)

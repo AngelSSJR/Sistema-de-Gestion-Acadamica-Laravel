@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRoomRequest;
 use App\Http\Requests\UpdateRoomRequest;
 use App\Models\Room;
+use Illuminate\Http\Request;
 
 class RoomController extends Controller
 {
@@ -14,11 +15,19 @@ class RoomController extends Controller
         return auth()->user()->isDevAdmin() ? 'dev-admin.' : 'coordinator.';
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $rooms = Room::latest()->paginate(15);
+        $search = $request->get('search');
+
+        $rooms = Room::when($search, function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('code', 'like', "%{$search}%");
+            })
+            ->latest()
+            ->paginate(15);
+
         $routePrefix = $this->getRoutePrefix();
-        return view('admin.rooms.index', compact('rooms', 'routePrefix'));
+        return view('admin.rooms.index', compact('rooms', 'routePrefix', 'search'));
     }
 
     public function create()

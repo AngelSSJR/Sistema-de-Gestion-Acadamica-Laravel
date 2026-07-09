@@ -9,13 +9,32 @@ use App\Models\Enrollment;
 use App\Models\Grade;
 use App\Models\Subject;
 use App\Models\Teacher;
+use Illuminate\Http\Request;
 
 class GradeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $grades = Grade::with(['enrollment.student.user', 'subject', 'teacher.user'])->latest()->paginate(20);
-        return view('admin.grades.index', compact('grades'));
+        $search = $request->get('search');
+
+        $grades = Grade::with(['enrollment.student.user', 'subject', 'teacher.user'])
+            ->when($search, function ($query) use ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->whereHas('enrollment.student.user', function ($q) use ($search) {
+                        $q->where('name', 'like', "%{$search}%");
+                    })
+                    ->orWhereHas('enrollment.course', function ($q) use ($search) {
+                        $q->where('name', 'like', "%{$search}%");
+                    })
+                    ->orWhereHas('subject', function ($q) use ($search) {
+                        $q->where('name', 'like', "%{$search}%");
+                    })
+                    ->orWhere('period', 'like', "%{$search}%");
+                });
+            })
+            ->latest()->paginate(20);
+
+        return view('admin.grades.index', compact('grades', 'search'));
     }
 
     public function create()

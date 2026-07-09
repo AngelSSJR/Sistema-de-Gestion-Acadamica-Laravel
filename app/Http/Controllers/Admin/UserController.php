@@ -14,10 +14,21 @@ use Illuminate\View\View;
 
 class UserController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
-        $users = User::with('roles')->latest()->paginate(15);
-        return view('admin.users.index', compact('users'));
+        $search = $request->get('search');
+
+        $users = User::with('roles')
+            ->when($search, function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%")
+                  ->orWhere('phone', 'like', "%{$search}%")
+                  ->orWhereHas('roles', fn($r) => $r->where('name', 'like', "%{$search}%"));
+            })
+            ->latest()
+            ->paginate(15);
+
+        return view('admin.users.index', compact('users', 'search'));
     }
 
     public function create(): View

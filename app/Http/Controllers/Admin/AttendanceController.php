@@ -8,13 +8,33 @@ use App\Http\Requests\UpdateAttendanceRequest;
 use App\Models\Attendance;
 use App\Models\Schedule;
 use App\Models\Student;
+use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $attendances = Attendance::with(['student.user', 'schedule.course', 'schedule.subject', 'registrar'])->latest()->paginate(20);
-        return view('admin.attendances.index', compact('attendances'));
+        $search = $request->get('search');
+
+        $attendances = Attendance::with(['student.user', 'schedule.course', 'schedule.subject', 'registrar'])
+            ->when($search, function ($query) use ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->whereHas('student.user', function ($q) use ($search) {
+                        $q->where('name', 'like', "%{$search}%");
+                    })
+                    ->orWhereHas('schedule.course', function ($q) use ($search) {
+                        $q->where('name', 'like', "%{$search}%");
+                    })
+                    ->orWhereHas('schedule.subject', function ($q) use ($search) {
+                        $q->where('name', 'like', "%{$search}%");
+                    })
+                    ->orWhere('date', 'like', "%{$search}%")
+                    ->orWhere('status', 'like', "%{$search}%");
+                });
+            })
+            ->latest()->paginate(20);
+
+        return view('admin.attendances.index', compact('attendances', 'search'));
     }
 
     public function create()

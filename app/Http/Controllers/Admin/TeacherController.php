@@ -7,13 +7,27 @@ use App\Http\Requests\StoreTeacherRequest;
 use App\Http\Requests\UpdateTeacherRequest;
 use App\Models\Teacher;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class TeacherController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $teachers = Teacher::with('user')->latest()->paginate(10);
-        return view('admin.teachers.index', compact('teachers'));
+        $search = $request->get('search');
+
+        $teachers = Teacher::with('user')
+            ->when($search, function ($q) use ($search) {
+                $q->whereHas('user', function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%")
+                      ->orWhere('email', 'like', "%{$search}%");
+                })
+                ->orWhere('employee_code', 'like', "%{$search}%")
+                ->orWhere('specialty', 'like', "%{$search}%");
+            })
+            ->latest()
+            ->paginate(10);
+
+        return view('admin.teachers.index', compact('teachers', 'search'));
     }
 
     public function create()
