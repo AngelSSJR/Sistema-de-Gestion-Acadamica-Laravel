@@ -45,6 +45,46 @@
             background: rgba(0, 0, 0, 0.75) !important;
             backdrop-filter: blur(6px);
         }
+
+        .btn-neon {
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+            border: none;
+            background: #0d6efd;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+        .btn-neon::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            z-index: -2;
+            background: conic-gradient(
+                #0d6efd, #4d9aff, #00d4ff, #7b2ff7, #ff0080, #0d6efd
+            );
+            animation: electric-border 2s linear infinite;
+            border-radius: inherit;
+        }
+        .btn-neon::after {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            z-index: -1;
+            background: #0d6efd;
+            border-radius: inherit;
+            transition: background 0.3s ease;
+        }
+        .btn-neon:hover {
+            transform: translateY(-2px);
+        }
+        .btn-neon:hover::after {
+            background: #0a58ca;
+        }
+        @keyframes electric-border {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -142,7 +182,7 @@
                                         </div>
                                     </div>
                                     <div class="text-center mt-4">
-                                        <a href="{{ route('home') }}" class="btn btn-primary px-4">
+                                        <a href="{{ route('home') }}" class="btn btn-primary px-4 btn-neon">
                                             <i class="bi bi-house-door me-1"></i>Inicio
                                         </a>
                                     </div>

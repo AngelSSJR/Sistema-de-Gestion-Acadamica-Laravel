@@ -37,7 +37,7 @@
                     {{ __('¿Olvidaste tu contraseña?') }}
                 </a>
             @endif
-            <button type="submit" class="btn btn-primary px-4">
+            <button type="submit" class="btn btn-primary px-4 btn-neon">
                 <i class="bi bi-box-arrow-in-right me-1"></i>{{ __('Ingresar') }}
             </button>
         </div>

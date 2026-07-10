@@ -23,12 +23,72 @@
             position: relative;
             z-index: 1;
         }
-        .card {
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(8px);
+        .card.login-card {
+            background: transparent;
+            backdrop-filter: none;
+            border: 1px solid rgba(255, 255, 255, 0.12) !important;
         }
         .text-muted {
             --bs-text-opacity: 0.85;
+        }
+        .login-card .form-label {
+            color: #fff;
+        }
+        .login-card .form-control {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .login-card .form-control:focus {
+            background: #fff;
+        }
+        .login-card .form-check-label {
+            color: rgba(255, 255, 255, 0.85);
+        }
+        .login-card a:not(.btn) {
+            color: #86b7fe;
+        }
+        .login-card a:not(.btn):hover {
+            color: #a8d0ff;
+        }
+
+        .btn-neon {
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+            border: none;
+            background: #0d6efd;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+        .btn-neon::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            z-index: -2;
+            background: conic-gradient(
+                #0d6efd, #4d9aff, #00d4ff, #7b2ff7, #ff0080, #0d6efd
+            );
+            animation: electric-border 2s linear infinite;
+            border-radius: inherit;
+        }
+        .btn-neon::after {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            z-index: -1;
+            background: #0d6efd;
+            border-radius: inherit;
+            transition: background 0.3s ease;
+        }
+        .btn-neon:hover {
+            transform: translateY(-2px);
+        }
+        .btn-neon:hover::after {
+            background: #0a58ca;
+        }
+        @keyframes electric-border {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -56,7 +116,7 @@
                     </div>
                 @endif
 
-                <div class="card shadow-sm border-0">
+                <div class="card shadow-sm border-0 login-card">
                     <div class="card-body p-4">
                         @yield('content')
                     </div>
