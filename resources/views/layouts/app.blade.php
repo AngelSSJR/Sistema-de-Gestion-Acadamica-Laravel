@@ -6,13 +6,144 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>UF - @yield('title', 'Dashboard')</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <style>
+        body {
+            background: url('{{ asset('img/fondo-negro-y-azul-vke2q5mo8108tqdh.jpg') }}') no-repeat center center fixed;
+            background-size: cover;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 0;
+        }
+        .wrapper {
+            position: relative;
+            z-index: 1;
+        }
+        .main-content .navbar {
+            background: rgba(0, 0, 0, 0.75) !important;
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .main-content .navbar .nav-link,
+        .main-content .navbar .dropdown-toggle {
+            color: rgba(255,255,255,0.85) !important;
+        }
+        .main-content .navbar .badge {
+            color: #fff !important;
+        }
+        .main-content .navbar .dropdown-menu {
+            background: rgba(20, 25, 40, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .main-content .navbar .dropdown-menu .dropdown-item {
+            color: rgba(255,255,255,0.8);
+        }
+        .main-content .navbar .dropdown-menu .dropdown-item:hover {
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+        }
+        .main-content .navbar .dropdown-divider {
+            border-color: rgba(255,255,255,0.1);
+        }
+        .card { color: #fff; }
+        .card .table {
+            color: #fff;
+        }
+        .card .table thead.table-light th,
+        .card .table thead th {
+            color: rgba(255,255,255,0.8) !important;
+            border-color: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.08) !important;
+        }
+        .card .table tbody td,
+        .card .table-bordered tbody td,
+        .card .table-bordered thead th {
+            border-color: rgba(255,255,255,0.08);
+            background: transparent !important;
+        }
+        .card .table tbody tr {
+            background: #0e0e10 !important;
+        }
+        .card .table tbody tr td {
+            color: #fff;
+        }
+        .card .table tbody tr:hover {
+            background: rgba(255,255,255,0.08) !important;
+        }
+        .card .table-striped tbody tr:nth-of-type(odd) {
+            background: #151515 !important;
+        }
+        .card .table tbody tr.table-active,
+        .card .table tbody tr.active {
+            background: rgba(255,255,255,0.1) !important;
+        }
+        .card .table tbody tr.table-active td,
+        .card .table tbody tr.active td {
+            color: #fff;
+        }
+        .card .text-muted {
+            color: rgba(255,255,255,0.6) !important;
+        }
+        .card .list-group-item {
+            background: transparent !important;
+            color: #fff;
+            border-color: rgba(255,255,255,0.08);
+        }
+        .page-link {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.15);
+            color: rgba(255,255,255,0.8);
+        }
+        .page-link:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.25);
+            color: #fff;
+        }
+        .page-item.active .page-link {
+            background: #0d6efd;
+            border-color: #0d6efd;
+        }
+        .page-item.disabled .page-link {
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.3);
+        }
+        .table .badge {
+            color: #fff !important;
+        }
+        h2, h5, h6, label, th, td, p, strong {
+            color: #fff;
+        }
+        .form-label {
+            color: #fff !important;
+        }
+        .alert {
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(6px);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .alert-success { border-left-color: #198754; }
+        .alert-danger { border-left-color: #dc3545; }
+        .btn-close {
+            filter: invert(1);
+        }
+        .main-content footer {
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+        }
+    </style>
 </head>
 <body>
     <div class="wrapper">
         @include('layouts.partials.sidebar')
 
         <div class="main-content">
-            <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4">
+            <nav class="navbar navbar-expand-lg navbar-dark shadow-sm px-4">
                 <div class="container-fluid">
                     <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                         <span class="navbar-toggler-icon"></span>
@@ -49,7 +180,7 @@
                 </div>
             </nav>
 
-            <main class="p-4">
+            <main class="p-4 pb-2">
                 @if (session('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <i class="bi bi-check-circle me-2"></i>{{ session('success') }}
@@ -66,6 +197,10 @@
 
                 @yield('content')
             </main>
+
+            <footer class="text-white text-center py-3 small border-top border-white border-opacity-10">
+                <p class="mb-0">&copy; {{ date('Y') }} Universidad de Fundación. Todos los derechos reservados.</p>
+            </footer>
         </div>
     </div>
 

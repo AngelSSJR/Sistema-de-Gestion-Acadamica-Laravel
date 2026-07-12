@@ -28,6 +28,10 @@
             backdrop-filter: none;
             border: 1px solid rgba(255, 255, 255, 0.12) !important;
         }
+        .card.login-card::before,
+        .card.login-card::after {
+            display: none !important;
+        }
         .text-muted {
             --bs-text-opacity: 0.85;
         }

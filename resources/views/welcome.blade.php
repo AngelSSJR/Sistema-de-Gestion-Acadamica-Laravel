@@ -31,6 +31,11 @@
             backdrop-filter: blur(6px);
         }
 
+        .welcome-card::before,
+        .welcome-card::after {
+            display: none !important;
+        }
+
         .btn-neon {
             position: relative;
             isolation: isolate;

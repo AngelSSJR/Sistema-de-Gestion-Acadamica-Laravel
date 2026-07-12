@@ -85,11 +85,12 @@
                                     <tr><th>Materia</th><th>Profesor</th><th>Día</th><th>Hora</th><th>Aula</th></tr>
                                 </thead>
                                 <tbody>
+                                    @php $days = ['monday' => 'Lunes', 'tuesday' => 'Martes', 'wednesday' => 'Miércoles', 'thursday' => 'Jueves', 'friday' => 'Viernes', 'saturday' => 'Sábado']; @endphp
                                     @foreach($course->schedules as $schedule)
                                         <tr>
                                             <td>{{ $schedule->subject->name }}</td>
                                             <td>{{ $schedule->teacher->user->name }}</td>
-                                            <td>{{ ucfirst($schedule->day_of_week) }}</td>
+                                            <td>@foreach(is_array($schedule->day_of_week) ? $schedule->day_of_week : [$schedule->day_of_week] as $d)<span class="badge bg-secondary me-1">{{ $days[$d] ?? ucfirst($d) }}</span>@endforeach</td>
                                             <td>{{ $schedule->start_time }} - {{ $schedule->end_time }}</td>
                                             <td>{{ $schedule->room ?? '—' }}</td>
                                         </tr>

@@ -26,64 +26,9 @@
             background: rgba(0, 0, 0, 0.75) !important;
             backdrop-filter: blur(6px);
         }
-        .card-translucent {
-            background: transparent;
-            border: 1px solid rgba(255,255,255,0.15) !important;
-        }
-        .card-translucent,
-        .card-translucent p,
-        .card-translucent strong:not(.text-primary) {
-            color: #fff !important;
-        }
-        .card-translucent a:not(.btn) {
-            color: #86b7fe !important;
-        }
-        .card-translucent .text-primary {
-            color: #86b7fe !important;
-        }
         footer {
             background: rgba(0, 0, 0, 0.75) !important;
             backdrop-filter: blur(6px);
-        }
-
-        .btn-neon {
-            position: relative;
-            isolation: isolate;
-            overflow: hidden;
-            border: none;
-            background: #0d6efd;
-            z-index: 1;
-            transition: all 0.3s ease;
-        }
-        .btn-neon::before {
-            content: '';
-            position: absolute;
-            inset: -3px;
-            z-index: -2;
-            background: conic-gradient(
-                #0d6efd, #4d9aff, #00d4ff, #7b2ff7, #ff0080, #0d6efd
-            );
-            animation: electric-border 2s linear infinite;
-            border-radius: inherit;
-        }
-        .btn-neon::after {
-            content: '';
-            position: absolute;
-            inset: 2px;
-            z-index: -1;
-            background: #0d6efd;
-            border-radius: inherit;
-            transition: background 0.3s ease;
-        }
-        .btn-neon:hover {
-            transform: translateY(-2px);
-        }
-        .btn-neon:hover::after {
-            background: #0a58ca;
-        }
-        @keyframes electric-border {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -124,7 +69,7 @@
                         <h1 class="display-4 fw-bold text-white">La Universidad</h1>
                     </div>
 
-                    <div class="card card-translucent border-0 shadow-sm mb-5 welcome-card" style="animation: fadeInUp 0.6s ease backwards 0.2s;">
+                    <div class="card mb-5 welcome-card" style="animation: fadeInUp 0.6s ease backwards 0.2s;">
                         <div class="card-body p-5">
                             <h3 class="fw-bold mb-3">SOBRE NOSOTROS</h3>
                             <p class="fs-5 fst-italic text-primary mb-4">¡La mejor educación al alcance de todos!</p>
@@ -137,7 +82,7 @@
                         </div>
                     </div>
 
-                    <div class="card card-translucent border-0 shadow-sm mb-4 welcome-card" style="animation: fadeInUp 0.6s ease backwards 0.4s;">
+                    <div class="card mb-4 welcome-card" style="animation: fadeInUp 0.6s ease backwards 0.4s;">
                         <div class="card-body p-5">
                             <h3 class="text-center fw-bold mb-4">DATOS DE CONTACTO</h3>
                             <div class="row g-4">
@@ -182,7 +127,7 @@
                                         </div>
                                     </div>
                                     <div class="text-center mt-4">
-                                        <a href="{{ route('home') }}" class="btn btn-primary px-4 btn-neon">
+                                        <a href="{{ route('home') }}" class="btn btn-primary px-4">
                                             <i class="bi bi-house-door me-1"></i>Inicio
                                         </a>
                                     </div>
