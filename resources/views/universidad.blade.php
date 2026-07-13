@@ -30,6 +30,22 @@
             background: rgba(0, 0, 0, 0.75) !important;
             backdrop-filter: blur(6px);
         }
+        .welcome-card {
+            background: transparent !important;
+            border: 1px solid rgba(255,255,255,0.15) !important;
+        }
+        .welcome-card .card-body {
+            background: transparent !important;
+            color: #fff !important;
+        }
+        .welcome-card .card-body h3,
+        .welcome-card .card-body p,
+        .welcome-card .card-body strong {
+            color: #fff !important;
+        }
+        .welcome-card a:not(.btn) {
+            color: #86b7fe !important;
+        }
     </style>
 </head>
 <body>
